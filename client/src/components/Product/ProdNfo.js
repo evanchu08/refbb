@@ -4,7 +4,8 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import faTruck from '@fortawesome/fontawesome-free-solid/faTruck';
 import faCheck from '@fortawesome/fontawesome-free-solid/faCheck';
 import faTimes from '@fortawesome/fontawesome-free-solid/faTimes';
-
+import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 
 const ProdNfo = (props) => {
@@ -38,13 +39,18 @@ const ProdNfo = (props) => {
             }
         </div>
     )
+
     const showProdActions = (detail) => (
         <div className="product_actions">
             <div className="price">${detail.price}</div>
             <div className="cart">
                 <MyButton
                     type="add_to_cart_link"
-                    runAction={() => props.addToCart(detail._id)}
+                    runAction={() => props.user.userData.isAuth ?
+                        props.addToCart(detail._id)
+                        :
+                        props.history.push('/register_login')
+                    }
                 />
             </div>
         </div>
@@ -77,5 +83,10 @@ const ProdNfo = (props) => {
     )
 }
 
+function mapStateToProps(state) {
+    return {
+        user: state.user
+    }
+}
 
-export default ProdNfo
+export default connect(mapStateToProps)(withRouter(ProdNfo))

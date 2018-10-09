@@ -174,7 +174,7 @@ class Register extends Component {
                                 <div>
                                     {this.state.formError ?
                                         <div className="error_label">
-                                            Please check your data
+                                            Please check your data. The email is probably already registered. Try forget password
                                         </div>
                                         : null}
                                     <button onClick={(event) => this.submitForm(event)}>

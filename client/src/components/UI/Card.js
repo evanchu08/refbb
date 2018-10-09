@@ -4,7 +4,7 @@ import imageNotAvailble from '../../images/image_not_availble.png';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { addToCart } from '../../actions/user_actions';
-import { Link } from 'react-router-dom'
+
 
 class Card extends Component {
     renderCardImage(images) {
@@ -24,7 +24,6 @@ class Card extends Component {
                     style={{
                         background: `url(${this.renderCardImage(props.images)}) no-repeat`
                     }}
-                    onClick={() => <Link to={`/product_detail/${props._id}`} />}
                 >  </div>
                 <div className="action_container">
                     <div className="tags">

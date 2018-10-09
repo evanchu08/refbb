@@ -43,12 +43,11 @@ const MyButton = (props) => {
         return template;
     }
     return (
-        <div className="my_link">
+        < div className="my_link" >
             {buttons()}
-        </div>
+        </div >
     )
 }
-
 export default MyButton
 
 

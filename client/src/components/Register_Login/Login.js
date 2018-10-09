@@ -98,7 +98,7 @@ class Login extends Component {
 
                     {this.state.formError ?
                         <div className="error_label">
-                            Please check your data
+                            Please check your data.
                         </div>
                         : null
                     }

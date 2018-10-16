@@ -4,6 +4,7 @@ import faCompass from '@fortawesome/fontawesome-free-solid/faCompass';
 import faPhone from '@fortawesome/fontawesome-free-solid/faPhone';
 import faClock from '@fortawesome/fontawesome-free-solid/faClock';
 import faEnvelope from '@fortawesome/fontawesome-free-solid/faEnvelope';
+import { Link } from 'react-router-dom';
 
 class Footer extends Component {
 
@@ -14,8 +15,8 @@ class Footer extends Component {
                 < footer className="bck_b_dark" >
                     <div className="container">
                         <div className="logo">
-                            Refbb
-		            </div>
+                            <Link to="/">Refbb</Link>
+                        </div>
                         <div className="wrapper">
                             <div className="left">
                                 <h2>Contact information</h2>

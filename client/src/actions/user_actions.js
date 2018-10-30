@@ -35,7 +35,7 @@ export function auth() {
 }
 
 export function logoutUser() {
-    const request = axios.get(`/api/user/logout`)
+    const request = axios.get(`/api/users/logout`)
         .then(response => response.data);
     return {
         type: LOGOUT_USER,

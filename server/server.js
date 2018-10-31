@@ -1,9 +1,13 @@
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-
+// file upload need formidable
+const formidable = require('express-formidable');
 const cloudinary = require('cloudinary');
-
+const async = require('async');
+const SHA1 = require("crypto-js/sha1");
+const moment = require('moment');
 const app = express();
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -22,43 +26,13 @@ cloudinary.config({
     api_key: process.env.CLOUD_API_Key,
     api_secret: process.env.CLOUD_API_Secret
 })
-
-
-
-
 //Route
 const userRoute = require('./routes/userRoute');
 const siteRoute = require('./routes/siteRoute');
 const productRoute = require('./routes/productRoute');
 
-/*
-const mailer = require('nodemailer');
-const smtpTransport = mailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: "refbbguitar@gmail.com",
-        pass: process.env.EMAIL_PASS
-    }
-});
+app.use(express.static('client/build'))
 
-var mail = {
-    from: "Refbb <refbbguitar@gmail.com>",
-    to: "runnial@gmail.com",
-    subject: "Send test email",
-    text: "Testing our waves mails",
-    html: "<b>Hellow guys this works</b>"
-}
-
-smtpTransport.sendMail(mail, function (error, response) {
-    if (error) {
-        console.log(error);
-    } else {
-        console.log('email sent')
-    }
-    smtpTransport.close();
-})
-
-*/
 
 
 app.use('/api/users', userRoute);

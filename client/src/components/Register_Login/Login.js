@@ -10,6 +10,7 @@ class Login extends Component {
 
     state = {
         formError: false,
+        formErrorMessage: '',
         formSuccess: '',
         formdata: {
             email: {
@@ -68,6 +69,7 @@ class Login extends Component {
                         this.props.history.push('/user/dashboard');
                     } else {
                         this.setState({
+                            formErrorMessage: response.payload.message,
                             formError: true
                         })
                     }
@@ -98,7 +100,7 @@ class Login extends Component {
 
                     {this.state.formError ?
                         <div className="error_label">
-                            Please check your data.
+                            {this.state.formErrorMessage}
                         </div>
                         : null
                     }

@@ -1,21 +1,24 @@
 const express = require('express');
 const router = express.Router();
 // file upload need formidable
+
 const formidable = require('express-formidable');
 const SHA1 = require("crypto-js/sha1");
 const async = require('async');
 const moment = require('moment');
 const mongoose = require('mongoose');
-
-//mail
-const { sendEmail } = require('../mail/index');
-
-const { User } = require('../models/user');
-const { Payment } = require('../models/payment');
-const { Product } = require('../models/product')
 // Middlewares
 const { auth } = require('../middleware/auth');
 const { admin } = require('../middleware/admin');
+
+
+const { User } = require('../models/user');
+//mail
+const { sendEmail } = require('../mail/index');
+
+
+const { Payment } = require('../models/payment');
+const { Product } = require('../models/product')
 
 router.post('/reset_user', (req, res) => {
     User.findOne(
@@ -64,20 +67,29 @@ router.get('/auth', auth, (req, res) => {
 })
 
 router.post('/register', (req, res) => {
-    const user = new User(req.body);
-
-    user.save((err, doc) => {
-        if (err) return res.json({ success: false, err });
-        sendEmail(doc.email, doc.name, null, "welcome");
-        res.status(200).json({
-            success: true
-        })
+    const { name, lastname, email, password } = req.body;
+    User.findOne({ email }, (err, user) => {
+        if (user) {
+            return res.json({ success: false, message: 'Email already register, please reset password' });
+        } else {
+            const newUser = new User({
+                name, lastname, email, password
+            });
+            newUser.save((err, doc) => {
+                if (err) return res.json({ success: false, err });
+                sendEmail(doc.email, doc.name, null, "welcome");
+                res.status(200).json({
+                    success: true
+                })
+            })
+        }
     })
-});
+})
+
 
 router.post('/login', (req, res) => {
     User.findOne({ 'email': req.body.email }, (err, user) => {
-        if (!user) return res.json({ loginSuccess: false, message: 'Auth failed, email not found' });
+        if (!user) return res.json({ loginSuccess: false, message: 'Email not found, please register' });
 
         user.comparePassword(req.body.password, (err, isMatch) => {
             if (!isMatch) return res.json({ loginSuccess: false, message: 'Wrong password' });

@@ -4,6 +4,35 @@ require('dotenv').config();
 const { purchase } = require('./purchase-template');
 const { resetPass } = require('./resetpass_template');
 
+/*
+const mailer = require('nodemailer');
+const smtpTransport = mailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "refbbguitar@gmail.com",
+        pass: process.env.EMAIL_PASS
+    }
+});
+
+var mail = {
+    from: "Refbb <refbbguitar@gmail.com>",
+    to: "runnial@gmail.com",
+    subject: "Send test email",
+    text: "Testing our waves mails",
+    html: "<b>Hellow guys this works</b>"
+}
+
+smtpTransport.sendMail(mail, function (error, response) {
+    if (error) {
+        console.log(error);
+    } else {
+        console.log('email sent')
+    }
+    smtpTransport.close();
+})
+
+*/
+
 const getEmailData = (to, name, token, template, actionData) => {
     let data = null;
 

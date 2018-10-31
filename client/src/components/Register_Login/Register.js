@@ -9,6 +9,7 @@ import { registerUser } from '../../actions/user_actions';
 class Register extends Component {
     state = {
         formError: false,
+        formErrorMessage: '',
         formSuccess: false,
         formdata: {
             name: {
@@ -96,6 +97,7 @@ class Register extends Component {
         let dataToSubmit = generateData(this.state.formdata, 'register');
         let isValid = isFormValid(this.state.formdata, 'register');
         if (isValid) {
+            console.log(dataToSubmit)
             this.props.dispatch(registerUser(dataToSubmit))
                 .then(response => {
                     if (response.payload.success) {
@@ -107,7 +109,10 @@ class Register extends Component {
                             this.props.history.push('/register_login');
                         }, 2000)
                     } else {
-                        this.setState({ formError: true })
+                        this.setState({
+                            formErrorMessage: response.payload.message,
+                            formError: true
+                        })
                     }
                 }).catch(err => {
                     this.setState({ formError: true })
@@ -174,7 +179,7 @@ class Register extends Component {
                                 <div>
                                     {this.state.formError ?
                                         <div className="error_label">
-                                            Please check your data. The email is probably already registered. Try forget password
+                                            {this.state.formErrorMessage ? this.state.formErrorMessage : 'please check your data'}
                                         </div>
                                         : null}
                                     <button onClick={(event) => this.submitForm(event)}>

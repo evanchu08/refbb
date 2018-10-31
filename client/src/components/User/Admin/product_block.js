@@ -33,7 +33,7 @@ const UserProductBlock = ({ products, removeCart }) => {
                     </div>
                     <div className="item">
                         <h4>Price</h4>
-                        <div> ${item.price}</div>
+                        <div> ${item.price * item.quantity}</div>
                     </div>
                     <div className="item btn">
                         <div className="cart_remove_btn"
